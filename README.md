@@ -8,6 +8,10 @@
     style="max-width: 100%;">
 </a>
 
+![calcular](https://github.com/alessandradocouto/calculadora-investimento/blob/master/img/tkinter-foto1.png)
+
+![resultado](https://github.com/alessandradocouto/calculadora-investimento/blob/master/img/retorno-foto2.png)
+
 
 ## Tabela de Conteúdos :file_folder:
 
