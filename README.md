@@ -9,7 +9,6 @@
 </a>
 
 
-
 ## Tabela de Conteúdos :file_folder:
 
 :heavy_check_mark: Python 3 avançado (com programação orientada a objetos)
@@ -23,8 +22,9 @@
 
 ## Descrição :loudspeaker:
 
-Calculadora que analisa e mostra a rentabilidade entre CDI e poupança.
-O projeto conta com interface gráfica Tkinter, semelhante ao HTML e CSS.
+Calculadora que analisa e mostra a rentabilidade entre CDI e poupança, o projeto conta com interface gráfica Tkinter, semelhante ao HTML e CSS.
+
+
 :red_circle: Não há Dependências e Libs Instaladas
 
 
