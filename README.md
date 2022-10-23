@@ -32,11 +32,7 @@
 
 Calculadora que analisa e mostra a rentabilidade de CDI e poupança.
 
-O projeto se divide em 2 partes:
-
-- Primeira parte é na interface textual(cdi.py);
-
-- Segunda parte é através da interface gráfica tkinter, semelhante ao HTML e CSS.
+O projeto conta com interface gráfica Tkinter, semelhante ao HTML e CSS.
 
 :red_circle: Não há Dependências e Libs Instaladas
 
