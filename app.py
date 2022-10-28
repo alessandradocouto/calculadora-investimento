@@ -1,6 +1,6 @@
 from tkinter import *
 import tkinter as tk
-from function import Func
+from app_function import Func
 
 root = Tk()
 
@@ -68,7 +68,7 @@ class Application(Func):
         self.vcmd = (self.root.register(self._validate_float))
         self.capital = Spinbox(self.frame2, textvariable=self._cap,
         from_=0.0, to=100000000000.0, increment=0.01, format="%.2f",
-        bg = "white", fg="black", width=20, validate="all",
+        bg = "white", fg="black", width=20, validate="key",
         validatecommand=(self.vcmd, '%P'))
         self.capital.place(relx=0.35, rely=0.03)
 
@@ -79,7 +79,7 @@ class Application(Func):
         self.vcmdselic = (self.root.register(self._validate_float))
         self.selic = Spinbox(self.frame2, textvariable=self._tx_selic,
         from_=0.0, to=10000.0, increment=0.01, format="%.2f",
-        validate="all", validatecommand=(self.vcmdselic, '%P'),
+        validate="key", validatecommand=(self.vcmdselic, '%P'),
         bg = "white", fg="black", width=6)
         self.selic.place(relx=0.35, rely=0.14)
         #  criacao labels(texto: % ao ano)
@@ -94,7 +94,7 @@ class Application(Func):
         self.vcmdcdi = (self.root.register(self._validate_float))
         self.cdi = Spinbox(self.frame2, textvariable=self._tx_cdi,
         from_=0.0, to=10000.0, increment=0.01, format="%.2f",
-        validate="all", validatecommand=(self.vcmdcdi, '%P'),
+        validate="key", validatecommand=(self.vcmdcdi, '%P'),
         bg = "white", fg="black",bd=0, width=6)
         self.cdi.place(relx=0.35, rely=0.25)
         self.lb_ano = Label(self.frame2, text="% ano", bg = "#faebd7", fg="black")
@@ -109,7 +109,7 @@ class Application(Func):
         self.vcmdrent = (self.root.register(self._validate_float))
         self.rent_cdi = Spinbox(self.frame2, textvariable=self._tx_rent_cdi,
         from_=0.0, to=10000.0, increment=0.01, format="%.2f",
-        validate="all", validatecommand=(self.vcmdrent, '%P'),
+        validate="key", validatecommand=(self.vcmdrent, '%P'),
         bg = "white", fg="black", width=6)
         self.rent_cdi.place(relx=0.35, rely=0.35)
         self.lb_prc_cdi = Label(self.frame2, text="% CDI", bg = "#faebd7", fg="black")
@@ -121,7 +121,7 @@ class Application(Func):
         #  criacao input meses
         self.vcmdmeses = (self.root.register(self._validate_float))
         self.meses = Spinbox(self.frame2, textvariable=self._num_meses, from_=1, 
-        to=10000, validate="all", validatecommand=(self.vcmdmeses, '%P'),
+        to=10000, validate="key", validatecommand=(self.vcmdmeses, '%P'),
         increment=1,bg = "white", fg="black",width=4)
         self.meses.place(relx=0.35, rely=0.45)
 
@@ -193,7 +193,7 @@ class Application(Func):
 
         # resultado de taxa de poupança
         self.lb_result_poupanca = Label(self.root2, 
-        text=f"Taxa Poupança: {self.mostra_poupanca(self.selic.get())}", 
+        text=f"Taxa Poupança: {self.calcular_poupanca(self.selic.get())[0]:.2f}% ao ano = {self.calcular_poupanca(self.selic.get())[1]:.4f}% ao mês",
         bg="#d3d3d3", fg="black", font=("Times", 11, "bold"))
         self.lb_result_poupanca.place(relx=0.05, rely=0.19)
 
@@ -204,13 +204,13 @@ class Application(Func):
 
         # resultado de rentabilidade bruto
         self.lb_result_rentabilidade = Label(self.root2, 
-        text=f"Rentabilidade:  {self._tx_rent_cdi.get():.2f}% CDI = {self.calculo_rent_bruta(self._tx_rent_cdi.get(), self._tx_cdi.get()):.2f} % ao ano", 
+        text=f"Rentabilidade:  {self._tx_rent_cdi.get():.2f}% CDI = {self.calcular_rent_bruta(self._tx_rent_cdi.get(), self._tx_cdi.get()):.2f} % ao ano", 
         bg="#d3d3d3", fg="black", font=("Times", 11, "bold"))
         self.lb_result_rentabilidade.place(relx=0.05, rely=0.27)
         
         # resultado de rentabilidade bruto Imposto
         self.lb_result_rentabilidade_ir = Label(self.root2,
-        text=f"Com impostos:  {self.calculo_rent_com_IR(self._tx_rent_cdi.get(),self._tx_cdi.get(), self._optionIR.get())[0]:.2f}% CDI = {self.calculo_rent_com_IR(self._tx_rent_cdi.get(),self._tx_cdi.get(),self._optionIR.get())[1]:.2f}% ao ano", 
+        text=f"Com impostos:  {self.calcular_rent_com_IR(self._tx_rent_cdi.get(),self._tx_cdi.get(), self._optionIR.get())[0]:.2f}% CDI = {self.calcular_rent_com_IR(self._tx_rent_cdi.get(),self._tx_cdi.get(),self._optionIR.get())[1]:.2f}% ao ano", 
         bg="#d3d3d3", fg="black", font=("Times", 11, "bold"))
         self.lb_result_rentabilidade_ir.place(relx=0.05, rely=0.29)
 
@@ -228,7 +228,7 @@ class Application(Func):
     def mostra_frame_blue(self):
         self.lb_result_mont_apl= Label(self.root2, 
         text=f"""Montante Aplicação = ${self.CDB(self._cap.get(),
-        self.calculo_rent_bruta(self._tx_rent_cdi.get(), self._tx_cdi.get()),
+        self.calcular_rent_bruta(self._tx_rent_cdi.get(), self._tx_cdi.get()),
         self.calcular_poupanca(self._tx_selic.get()),self._tx_rent_cdi.get(),
         self._optionIR.get(),self._num_meses.get())[0]:.2f}""",
         bg="#d3d3d3", fg="black", font=("Times", 11, "bold"))
@@ -236,33 +236,33 @@ class Application(Func):
         
         self.lb_result_mont_poup = Label(self.root2, 
         text=f"""Montante da Poupança = ${self.CDB(self._cap.get(),
-        self.calculo_rent_bruta(self._tx_rent_cdi.get(), self._tx_cdi.get()),
+        self.calcular_rent_bruta(self._tx_rent_cdi.get(), self._tx_cdi.get()),
         self.calcular_poupanca(self._tx_selic.get()),self._tx_rent_cdi.get(),
-        self._optionIR.get(),self._num_meses.get())[1]:.2f}""",
+        self._optionIR.get(), self._num_meses.get())[1]:.2f}""",
         bg="#d3d3d3", fg="black", font=("Times", 10, "bold"))
         self.lb_result_mont_poup.place(relx=0.6, rely=0.11)
 
         self.lb_result_dif_apl_poup = Label(self.root2, 
         text=f"""Apl - Poup ({self._num_meses.get()} meses ) = ${self.CDB(self._cap.get(),
-        self.calculo_rent_bruta(self._tx_rent_cdi.get(), self._tx_cdi.get()),
+        self.calcular_rent_bruta(self._tx_rent_cdi.get(), self._tx_cdi.get()),
         self.calcular_poupanca(self._tx_selic.get()),self._tx_rent_cdi.get(),
         self._optionIR.get(),self._num_meses.get())[3]:.2f}""",
         bg="#d3d3d3", fg="black", font=("Times", 10, "bold"))
         self.lb_result_dif_apl_poup.place(relx=0.6, rely=0.15)
 
         self.lb_result_ir_apl_poup = Label(self.root2, 
-        text=f"""Imposto = ${self.CDB(self._cap.get(),self.calculo_rent_bruta(
+        text=f"""Imposto = ${self.CDB(self._cap.get(),self.calcular_rent_bruta(
             self._tx_rent_cdi.get(), self._tx_cdi.get()),
             self.calcular_poupanca(self._tx_selic.get()),self._tx_rent_cdi.get(),
-            self._optionIR.get(),self._num_meses.get())[2]:.4f}""",
+            self._optionIR.get(), self._num_meses.get())[2]:.4f}""",
         bg="#d3d3d3", fg="black", font=("Times", 10, "bold"))
         self.lb_result_ir_apl_poup.place(relx=0.6, rely=0.19)
 
         self.lb_result_rend_mes = Label(self.root2, text=f"""Rendimento em {self._num_meses.get()} meses = {
-            self.CDB(self._cap.get(),self.calculo_rent_bruta(
+            self.CDB(self._cap.get(),self.calcular_rent_bruta(
             self._tx_rent_cdi.get(), self._tx_cdi.get()),
             self.calcular_poupanca(self._tx_selic.get()),self._tx_rent_cdi.get(),
-            self._optionIR.get(),self._num_meses.get())[4]:.4f}%""",
+            self._optionIR.get(), self._num_meses.get())[4]:.4f}%""",
         bg="#d3d3d3", fg="black", font=("Times", 10, "bold"))
         self.lb_result_rend_mes.place(relx=0.6, rely=0.23)
     
@@ -275,7 +275,7 @@ class Application(Func):
         self.lb_result_saldo_apl_poup= Label(self.root2, 
         text=f"""Apl - Poup({self._num_meses.get()} meses) = {self.apl_dif_poup(
         self._cap.get(),self.CDB(self._cap.get(),
-        self.calculo_rent_bruta(self._tx_rent_cdi.get(), self._tx_cdi.get()),
+        self.calcular_rent_bruta(self._tx_rent_cdi.get(), self._tx_cdi.get()),
         self.calcular_poupanca(self._tx_selic.get()),self._tx_rent_cdi.get(),
         self._optionIR.get(),self._num_meses.get())):.4f}%""",
         bg="#d3d3d3", fg="black", font=("Times", 10, "bold"))
@@ -295,12 +295,10 @@ class Application(Func):
 
         self.lb_result_double_cdi= Label(self.root2, 
         text=f"""Tempo 2 x Aplicação = {self.tempo_double_apl(
-            self.calculo_rent_com_IR(self._tx_rent_cdi.get(), 
+            self.calcular_rent_com_IR(self._tx_rent_cdi.get(), 
             self._tx_cdi.get(), self._optionIR.get())):.2f} anos""",
         bg="#d3d3d3", fg="black", font=("Times", 10, "bold"))
         self.lb_result_double_cdi.place(relx=0.15, rely=0.65)
-
-
 
 
 def main():

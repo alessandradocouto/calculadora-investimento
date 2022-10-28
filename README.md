@@ -1,5 +1,5 @@
 # Calculadora de Investimento com TKinter, Unittests  :zap:
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![tkinter](https://img.shields.io/badge/gui-TKINTER-yellow.svg)](https://)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![tkinter](https://img.shields.io/badge/gui-TKINTER-yellow.svg)
 
 <a href="https://forthebadge.com" rel="nofollow">
     <img src="https://camo.githubusercontent.com/3cdf9577401a2c7dceac655bbd37fb2f3ee273a457bf1f2169c602fb80ca56f8/68747470733a2f2f666f7274686562616467652e636f6d2f696d616765732f6261646765732f6d6164652d776974682d707974686f6e2e737667"
@@ -45,11 +45,6 @@ De maneira simples, você simula qual tipo de investimento vai te trazer o maior
 4. Após ter realizado suas modificações, faça um commit (git commit -m "Descrição da modificação");
 5. Faça o Push para seu repositório (git push origin feature/nome_modificação);
 6. No seu repositório no Github crie uma Pull Request para que seja avaliada a suas modificações para ser feito o merge no projeto principal.
-
-
-## Tarefas em aberto :soon:
-
-[x] Teste
 
 
 ## Status :wrench:
